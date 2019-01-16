@@ -16,14 +16,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startActivity(new Intent(this,RxBusActivity.class));
+        startActivity(new Intent(this,RxPermissionActivity.class));
     }
 
     public void test2(){
+
         new NdkUtil().string_java("我是java");
     }
 
     public void test3(){
+
         int[] array = new int[10];
 
         for(int i = 0;i < 10; i++){
