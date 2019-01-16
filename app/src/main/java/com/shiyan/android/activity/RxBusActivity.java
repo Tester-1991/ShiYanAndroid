@@ -9,6 +9,7 @@ import com.shiyan.android.R;
 import com.shiyan.android.basemodule.util.RxBus;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class RxBusActivity extends AppCompatActivity {
@@ -27,10 +28,9 @@ public class RxBusActivity extends AppCompatActivity {
             RxBus.getInstance().post("123456");
         });
 
-        RxBus.getInstance().toObservable(String.class)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> Log.e("string", s));
 
+        RxBus.getInstance().register(String.class, s -> {
+                Log.e("RxBus",s);
+        });
     }
 }

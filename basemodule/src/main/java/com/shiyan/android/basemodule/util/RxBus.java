@@ -3,6 +3,10 @@ package com.shiyan.android.basemodule.util;
 import android.util.Log;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
@@ -73,5 +77,19 @@ public class RxBus {
     public <T> Observable<T> toObservable(Class<T> type){
 
         return subject.ofType(type);
+    }
+
+    /**
+     * 注册监听消息
+     */
+    public <T> Disposable register(Class<T> type, Consumer<T> consumer){
+
+        Disposable disposable = getInstance().toObservable(type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(consumer);
+
+        return disposable;
+
     }
 }
