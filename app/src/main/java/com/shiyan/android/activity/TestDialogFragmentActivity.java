@@ -3,11 +3,10 @@ package com.shiyan.android.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.Button;
 
 import com.shiyan.android.R;
-import com.shiyan.android.view.BottomDialgFragment;
+import com.shiyan.android.view.BottomDialogFragment;
 
 public class TestDialogFragmentActivity extends AppCompatActivity {
 
@@ -23,7 +22,7 @@ public class TestDialogFragmentActivity extends AppCompatActivity {
 
         btn_show.setOnClickListener(v -> {
 
-            BottomDialgFragment dialgFragment = new BottomDialgFragment();
+            BottomDialogFragment dialgFragment = new BottomDialogFragment();
 
             dialgFragment.setGravity(Gravity.CENTER);
 

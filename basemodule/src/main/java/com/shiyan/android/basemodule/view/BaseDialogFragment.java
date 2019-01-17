@@ -1,6 +1,6 @@
 package com.shiyan.android.basemodule.view;
 
-import android.app.Dialog;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,8 +22,6 @@ import com.shiyan.android.basemodule.R;
  * update 2019.01.17
  */
 public abstract class BaseDialogFragment extends DialogFragment {
-
-    private Dialog dialog;
 
     protected View rootView;
 
@@ -48,21 +46,18 @@ public abstract class BaseDialogFragment extends DialogFragment {
         setStyle(DialogFragment.STYLE_NORMAL, theme);
     }
 
-    @NonNull
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+    public void onStart() {
+        super.onStart();
 
-        dialog = new Dialog(getActivity());
+        initParams();
+    }
 
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    private void initParams() {
 
-        rootView = LayoutInflater.from(getActivity()).inflate(getLayoutId(), null);
+        Window window = getDialog().getWindow();
 
-        dialog.setContentView(rootView);
-
-        dialog.setCanceledOnTouchOutside(cancle);
-
-        Window window = dialog.getWindow();
+        if(window == null) return;
 
         //设置背景颜色透明
         window.setBackgroundDrawableResource(android.R.color.transparent);
@@ -94,9 +89,18 @@ public abstract class BaseDialogFragment extends DialogFragment {
 
         window.setAttributes(layoutParams);
 
+        setCancelable(cancle);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        rootView = inflater.inflate(getLayoutId(), container, false);
+
         initView();
 
-        return dialog;
+        return rootView;
     }
 
     public void setOutCancel(boolean outCancel) {
@@ -132,6 +136,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
     /**
      * 显示
      * @param manager
+     * @return
      */
     public BaseDialogFragment show(FragmentManager manager) {
 
