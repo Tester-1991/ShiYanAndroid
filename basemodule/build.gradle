@@ -40,4 +40,7 @@ dependencies {
 
     //AndroidUtilCode
     api 'com.blankj:utilcode:1.22.10'
+
+    //ActivityForResult
+    implementation 'com.github.AnotherJack:AvoidOnResult:1.0.0'
 }
