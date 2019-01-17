@@ -14,6 +14,8 @@ import java.io.File;
 
 /**
  * 下载工具类
+ * shiyan
+ * update 2019.01.17
  */
 public class DownLoadUtil {
 
