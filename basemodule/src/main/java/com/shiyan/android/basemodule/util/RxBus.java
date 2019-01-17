@@ -1,7 +1,5 @@
 package com.shiyan.android.basemodule.util;
 
-import android.util.Log;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
