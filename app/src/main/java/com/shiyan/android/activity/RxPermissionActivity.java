@@ -1,8 +1,6 @@
 package com.shiyan.android.activity;
 
 import android.Manifest;
-import android.app.DownloadManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +17,11 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 
+/**
+ * 权限申请下载测试
+ * shiyan
+ * update 2019.01.17
+ */
 public class RxPermissionActivity extends AppCompatActivity {
 
     private Button btn_click;

@@ -10,6 +10,8 @@ import io.reactivex.subjects.Subject;
 
 /**
  * RxBus管理者
+ * shiyan
+ * update 2019.01.17
  */
 public class RxBus {
 

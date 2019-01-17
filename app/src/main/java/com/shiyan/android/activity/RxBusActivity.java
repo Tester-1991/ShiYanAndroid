@@ -8,6 +8,11 @@ import android.widget.Button;
 import com.shiyan.android.R;
 import com.shiyan.android.basemodule.util.RxBus;
 
+/**
+ * RxBus测试
+ * shiyan
+ * update 2019.01.17
+ */
 public class RxBusActivity extends AppCompatActivity {
 
     private Button btn_send;

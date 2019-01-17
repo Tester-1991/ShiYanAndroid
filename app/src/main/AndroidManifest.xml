@@ -4,10 +4,10 @@
     package="com.shiyan.android">
 
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.shiyan.android.utilcode.provider"
@@ -25,7 +24,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/util_code_provider_paths"/>
+                android:resource="@xml/util_code_provider_paths" />
         </provider>
 
         <activity android:name=".activity.MainActivity">
@@ -36,9 +35,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RxBusActivity" />
-        <activity android:name=".activity.RxPermissionActivity"></activity>
+        <activity android:name=".activity.RxPermissionActivity" />
+        <activity android:name=".activity.TestDialogFragmentActivity"></activity>
     </application>
-
-
 
 </manifest>

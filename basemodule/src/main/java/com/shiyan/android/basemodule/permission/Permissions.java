@@ -7,6 +7,8 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 /**
  * 权限管理类
+ * shiyan
+ * update 2019.01.17
  */
 public class Permissions {
 
