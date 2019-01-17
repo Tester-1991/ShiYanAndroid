@@ -26,7 +26,7 @@ public class DownLoadUtil {
 
     public interface DownLoadListener{
 
-        public void onDownLoadFinish(File file);
+        void onDownLoadFinish(File file);
 
     }
 
@@ -54,6 +54,9 @@ public class DownLoadUtil {
 
     /**
      * 获取当前下载状态
+     * @param context
+     * @param downLoadEnum
+     * @return
      */
     public String query(Context context,DownLoadEnum downLoadEnum){
 
@@ -104,8 +107,31 @@ public class DownLoadUtil {
 
     }
 
-
+    /**
+     * 下载
+     * @param context
+     * @param url
+     * @param title
+     * @param desc
+     * @param filepath
+     * @param downLoadListener
+     */
     public void downLoad(Context context,String url, String title, String desc, String filepath,DownLoadListener downLoadListener){
+
+        downLoad(context,url,title,desc,filepath,downLoadListener,DownloadManager.Request.VISIBILITY_VISIBLE);
+    }
+
+    /**
+     * 下载
+     * @param context
+     * @param url
+     * @param title
+     * @param desc
+     * @param filepath
+     * @param downLoadListener
+     * @param visiable
+     */
+    public void downLoad(Context context,String url, String title, String desc, String filepath,DownLoadListener downLoadListener,int visiable){
 
         //创建下载请求
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
@@ -116,7 +142,7 @@ public class DownLoadUtil {
          *    VISIBILITY_VISIBLE_NOTIFY_COMPLETED:  下载过程中和下载完成后均可见
          *    VISIBILITY_HIDDEN:                    始终不显示通知
          */
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+        request.setNotificationVisibility(visiable);
 
         //设置通知的标题
         request.setTitle(title);
@@ -178,6 +204,7 @@ public class DownLoadUtil {
 
     /**
      * 解除广播
+     * @param context
      */
     public void unregisterDownloadReceiver(Context context){
 
