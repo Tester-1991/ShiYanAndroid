@@ -11,4 +11,8 @@
         android:text="测试权限"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

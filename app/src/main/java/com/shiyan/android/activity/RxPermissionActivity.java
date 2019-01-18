@@ -2,12 +2,15 @@ package com.shiyan.android.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.shiyan.android.R;
 import com.shiyan.android.basemodule.enumeration.DownLoadEnum;
@@ -31,6 +34,8 @@ public class RxPermissionActivity extends AppCompatActivity {
 
     private String apkUrl = "https://airspace-test.oss-cn-beijing.aliyuncs.com/201700003/1543924658539%E7%A9%BA%E7%BD%91%E6%B5%8B%E8%AF%95.apk";
 
+    private ImageView iv_image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +50,13 @@ public class RxPermissionActivity extends AppCompatActivity {
                 @Override
                 public void granted() {
 
-                    PhotoUtil.getInstance().takeCamera(RxPermissionActivity.this);
+                    PhotoUtil.getInstance().takeAlbumn(RxPermissionActivity.this);
 
                 }
             },Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE);
         });
+
+        iv_image = findViewById(R.id.iv_image);
 
     }
 
@@ -85,6 +92,12 @@ public class RxPermissionActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        PhotoUtil.getInstance().onActivityResult(this,requestCode,resultCode,data);
+        PhotoUtil.getInstance().onActivityResult(this, requestCode, resultCode, data, file -> {
+
+            Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+
+            iv_image.setImageBitmap(bitmap);
+
+        });
     }
 }

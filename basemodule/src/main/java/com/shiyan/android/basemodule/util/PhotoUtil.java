@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.SDCardUtils;
 
 import java.io.File;
@@ -45,6 +46,12 @@ public class PhotoUtil {
     private static final int OUTPUT_X = 480;
 
     private static final int OUTPUT_Y = 480;
+
+    public interface OnPhoneListener{
+
+        void onPhone(File file);
+
+    }
 
 
     private PhotoUtil() {
@@ -81,11 +88,11 @@ public class PhotoUtil {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-                imageUri = FileProvider.getUriForFile(activity, "com.shiyan.android.utilcode.provider", fileUri);
+                imageUri = FileProvider.getUriForFile(activity, AppUtils.getAppPackageName() + ".utilcode.provider", fileUri);
 
             }
 
-            PhotoUtil.getInstance().takePicture(activity, imageUri, CODE_CAMERA_REQUEST);
+            PhotoUtil.getInstance().openCamera(activity, imageUri, CODE_CAMERA_REQUEST);
 
         }
     }
@@ -96,7 +103,7 @@ public class PhotoUtil {
      */
     public void takeAlbumn(Activity activity) {
 
-        PhotoUtil.getInstance().openPic(activity, CODE_GALLERY_REQUEST);
+        PhotoUtil.getInstance().openPicture(activity, CODE_GALLERY_REQUEST);
 
     }
 
@@ -107,7 +114,7 @@ public class PhotoUtil {
      * @param resultCode
      * @param data
      */
-    public void onActivityResult(Activity activity,int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(Activity activity,int requestCode, int resultCode, @Nullable Intent data,OnPhoneListener onPhoneListener) {
         if (resultCode == Activity.RESULT_OK) {
 
             switch (requestCode) {
@@ -119,7 +126,7 @@ public class PhotoUtil {
                     PhotoUtil.getInstance().cropImageUri(activity, imageUri, cropImageUri, 1, 1, OUTPUT_X, OUTPUT_Y, CODE_RESULT_REQUEST);
 
                     break;
-
+                //相册获取
                 case CODE_GALLERY_REQUEST:
 
                     if (SDCardUtils.isSDCardEnable()) {
@@ -130,13 +137,19 @@ public class PhotoUtil {
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-                            newUri = FileProvider.getUriForFile(activity, "com.shiyan.android.utilcode.provider", new File(newUri.getPath()));
+                            newUri = FileProvider.getUriForFile(activity, AppUtils.getAppPackageName() + ".utilcode.provider", new File(newUri.getPath()));
 
                         }
 
                         PhotoUtil.getInstance().cropImageUri(activity, newUri, cropImageUri, 1, 1, OUTPUT_X, OUTPUT_Y, CODE_RESULT_REQUEST);
 
                     }
+                    break;
+                //裁剪结果
+                case CODE_RESULT_REQUEST:
+
+                    onPhoneListener.onPhone(fileCropUri);
+
                     break;
             }
         }
@@ -148,7 +161,7 @@ public class PhotoUtil {
      * @param imageUri    拍照后照片存储路径
      * @param requestCode 调用系统相机请求码
      */
-    public void takePicture(Activity activity, Uri imageUri, int requestCode) {
+    public void openCamera(Activity activity, Uri imageUri, int requestCode) {
         //调用系统相机
         Intent intentCamera = new Intent();
         intentCamera.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -161,7 +174,7 @@ public class PhotoUtil {
      * @param activity    当前activity
      * @param requestCode 打开相册的请求码
      */
-    public void openPic(Activity activity, int requestCode) {
+    public void openPicture(Activity activity, int requestCode) {
         Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
         photoPickerIntent.setType("image/*");
         activity.startActivityForResult(photoPickerIntent, requestCode);
