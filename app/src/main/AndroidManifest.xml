@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -37,7 +37,9 @@
         </activity>
         <activity android:name=".activity.RxBusActivity" />
         <activity android:name=".activity.RxPermissionActivity" />
-        <activity android:name=".activity.TestDialogFragmentActivity"></activity>
+        <activity android:name=".activity.TestDialogFragmentActivity" />
+        <activity android:name=".activity.ProgressBarActivity" />
+        <activity android:name=".activity.SeekBarActivity"></activity>
     </application>
 
 </manifest>
